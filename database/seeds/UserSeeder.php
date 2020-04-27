@@ -27,20 +27,11 @@ class UserSeeder extends Seeder
 
         ]);
 
-        User::create([
-            'name' => 'Another User',
-            'email' => 'another@user.com',
-            'password' => bcrypt('prueba'),
-            'profession_id' => $professionId,
-
+        factory(User::class)->create([
+            'profession_id' => $professionId
         ]);
 
-        User::create([
-            'name' => 'Another User',
-            'email' => 'another2@user.com',
-            'password' => bcrypt('prueba'),
-            'profession_id' => null,
+        factory(User::class, 48)->create();
 
-        ]);
     }
 }
