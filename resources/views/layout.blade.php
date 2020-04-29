@@ -39,7 +39,7 @@
                 @section('sidebar')
                     
                 
-                <h2>Barra Lateral</h2>
+                
                 
                 @show
             </div>
