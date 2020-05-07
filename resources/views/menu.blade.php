@@ -14,7 +14,7 @@
           <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="usuarios">Users</a>
+          <a class="nav-link" href="{{ route('users.index') }}">Users</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="">Edit</a>
