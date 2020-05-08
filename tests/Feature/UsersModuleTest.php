@@ -105,4 +105,21 @@ class UsersModuleTest extends TestCase
         $this->get('/usuarios/texto/edit')
         ->assertStatus(404);        
     }
+
+    /** test */
+    function name_required()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->post('/usuarios/', [
+            'name' => '',
+            'email' => 'joserodezno99@gmail.com',
+            'password' => 'prueba'
+        ])->assertRedirect('usuarios/nuevo')
+        ->assertSessionHasErrors(['name']);
+
+        $this->assertDatabaseMissing('users', [
+            'email' => 'joserodezno99@gmail.com'
+        ]);
+    }
 }
