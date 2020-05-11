@@ -111,15 +111,18 @@ class UsersModuleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->post('/usuarios/', [
+        $this->from('usuarios/nuevo')
+        ->post('/usuarios/', [
             'name' => '',
             'email' => 'joserodezno99@gmail.com',
             'password' => 'prueba'
-        ])->assertRedirect('usuarios/nuevo')
-        ->assertSessionHasErrors(['name']);
+        ])
+        ->assertRedirect('usuarios/nuevo')
+        ->assertSessionHasErrors(['name' => 'El campo nombre es obligatorio']);
 
-        $this->assertDatabaseMissing('users', [
-            'email' => 'joserodezno99@gmail.com'
-        ]);
+        $this->assertEquals(0, User::count());
+       // $this->assertDatabaseMissing('users', [
+       //     'email' => 'joserodezno99@gmail.com'
+        //]);
     }
 }

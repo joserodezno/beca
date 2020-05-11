@@ -35,11 +35,12 @@ class UserController extends Controller
 
     public function store()
     {
-        $data = request()->all();
+        $data = request()->validate([
+            'name' => 'required'
+        ], [
+            'name.required' => 'El campo nombre es obligatorio'
+        ]);
 
-        if (empty($data['name'])) {
-            return redirect('usuarios/nuevo');
-        }
 
         User::create([
             'name' => $data['name'],
