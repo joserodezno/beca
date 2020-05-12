@@ -106,10 +106,10 @@ class UsersModuleTest extends TestCase
         ->assertStatus(404);        
     }
 
-    /** test */
+    /** @test */
     function name_required()
     {
-        $this->withoutExceptionHandling();
+       
 
         $this->from('usuarios/nuevo')
         ->post('/usuarios/', [

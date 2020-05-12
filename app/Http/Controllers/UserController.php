@@ -27,7 +27,6 @@ class UserController extends Controller
 
     public function create()
     {
-        $title = 'Crear Nuevo Usuario';
 
         return view('users.create');
         
@@ -35,6 +34,7 @@ class UserController extends Controller
 
     public function store()
     {
+
         $data = request()->validate([
             'name' => 'required'
         ], [
