@@ -121,8 +121,75 @@ class UsersModuleTest extends TestCase
         ->assertSessionHasErrors(['name' => 'El campo nombre es obligatorio']);
 
         $this->assertEquals(0, User::count());
-       // $this->assertDatabaseMissing('users', [
-       //     'email' => 'joserodezno99@gmail.com'
-        //]);
+    }
+
+    /** @test */
+    function email_required()
+    {
+       
+
+        $this->from('usuarios/nuevo')
+        ->post('/usuarios/', [
+            'name' => 'Jose',
+            'email' => '',
+            'password' => 'prueba'
+        ])
+        ->assertRedirect('usuarios/nuevo')
+        ->assertSessionHasErrors(['email']);
+
+        $this->assertEquals(0, User::count());
+    }
+
+    /** @test */
+    function email_must_be_valid()
+    {
+       
+
+        $this->from('usuarios/nuevo')
+        ->post('/usuarios/', [
+            'name' => 'Jose',
+            'email' => 'correo-no-valido',
+            'password' => 'prueba'
+        ])
+        ->assertRedirect('usuarios/nuevo')
+        ->assertSessionHasErrors(['email']);
+
+        $this->assertEquals(0, User::count());
+    }
+
+    /** @test */
+    function email_must_be_unique()
+    {
+        factory(User::class)->create([
+            'email' => 'joserodezno99@gmail.com'
+        ]);
+
+        $this->from('usuarios/nuevo')
+        ->post('/usuarios/', [
+            'name' => 'Jose',
+            'email' => 'joserodezno99@gmail.com',
+            'password' => 'prueba'
+        ])
+        ->assertRedirect('usuarios/nuevo')
+        ->assertSessionHasErrors(['email']);
+
+        $this->assertEquals(1, User::count());
+    }
+
+    /** @test */
+    function password_required()
+    {
+       
+
+        $this->from('usuarios/nuevo')
+        ->post('/usuarios/', [
+            'name' => 'Jose',
+            'email' => 'joserodezno99@gmail.com',
+            'password' => ''
+        ])
+        ->assertRedirect('usuarios/nuevo')
+        ->assertSessionHasErrors(['password']);
+
+        $this->assertEquals(0, User::count());
     }
 }

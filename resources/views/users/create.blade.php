@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <h1>Crear usuario</h1>
+    <h1>Crear nuevo usuario</h1>
 
 
 
