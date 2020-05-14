@@ -91,15 +91,6 @@ class UsersModuleTest extends TestCase
         ]);
     }
 
-    /** @test */
-
-    function edit_users_page()
-    {
-        $this->get('/usuarios/3/edit')
-        ->assertStatus(200)
-        ->assertSee('Editar usuario: 3');
-    }
-
     function page_not_found()
     {
         $this->get('/usuarios/texto/edit')
@@ -118,7 +109,7 @@ class UsersModuleTest extends TestCase
             'password' => 'prueba'
         ])
         ->assertRedirect('usuarios/nuevo')
-        ->assertSessionHasErrors(['name' => 'El campo nombre es obligatorio']);
+        ->assertSessionHasErrors(['name' => 'El campo Nombre es obligatorio']);
 
         $this->assertEquals(0, User::count());
     }
@@ -191,5 +182,21 @@ class UsersModuleTest extends TestCase
         ->assertSessionHasErrors(['password']);
 
         $this->assertEquals(0, User::count());
+    }
+
+    /** @test*/
+    function loads_edit_user_page()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+
+        $this->get("/usuarios/{$user->id}/edit")
+            ->assertStatus(200)
+            ->assertViewIs('users.edit')
+            ->assertSee('Editar usuario')
+            ->assertViewHas('user', function ($viewUser) use ($user){
+                return $viewUser->id == $user->id;
+            });
     }
 }

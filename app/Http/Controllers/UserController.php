@@ -38,9 +38,13 @@ class UserController extends Controller
         $data = request()->validate([
             'name' => 'required',
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => 'required',
+            'password' => ['required', 'min:6']
         ], [
-            'name.required' => 'El campo nombre es obligatorio'
+            'name.required' => 'El campo Nombre es obligatorio',
+            'email.required' => 'El campo Correo electronico es obligatorio',
+            'email.unique' => 'este correo ya esta registrado',
+            'password.required' => 'El campo Contraseña es obligatorio',
+            'password.min' => 'La contraseña debe de tener minimo 6 caracteres'
         ]);
 
 
@@ -53,11 +57,9 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        $title = 'Editar Usuario';
-
-        return view('edit', compact('title','id'));
+        return view('users.edit', ['user' => $user]);
         
     }
 }
