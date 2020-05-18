@@ -49,7 +49,7 @@ class UsersModuleTest extends TestCase
             'name' => 'Jose Rodezno'
         ]);
 
-        $this->get('/usuarios/'.$user->id)
+        $this->get("/usuarios/{$user->id}")
         ->assertStatus(200)
         ->assertSee('Jose Rodezno');
     }
@@ -196,7 +196,27 @@ class UsersModuleTest extends TestCase
             ->assertViewIs('users.edit')
             ->assertSee('Editar usuario')
             ->assertViewHas('user', function ($viewUser) use ($user){
-                return $viewUser->id == $user->id;
+                return $viewUser->id === $user->id;
             });
     }
+
+    /** @test*/
+    function update_user()
+    {
+        $user = factory(User::class)->create();
+
+        $this->withoutExceptionHandling();
+
+        $this->put("/usuarios/{$user->id}", [
+            'name' => 'Jose',
+            'email' => 'joserodezno99@gmail.com',
+            'password' => 'prueba'
+        ])->assertRedirect("/usuarios/{$user->id}");
+
+        $this->assertCredentials([
+            'name' => 'Jose',
+            'email' => 'joserodezno99@gmail.com',
+            'password' => 'prueba'
+        ]);
+    } 
 }
