@@ -40,9 +40,9 @@ class UserController extends Controller
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:6']
         ], [
-            'name.required' => 'El campo Nombre es obligatorio',
+            'name.required' => 'El campo nombre es obligatorio',
             'email.required' => 'El campo Correo electronico es obligatorio',
-            'email.unique' => 'este correo ya esta registrado',
+            'email.unique' => 'Este correo ya esta registrado',
             'password.required' => 'El campo Contraseña es obligatorio',
             'password.min' => 'La contraseña debe de tener minimo 6 caracteres'
         ]);
@@ -65,7 +65,11 @@ class UserController extends Controller
 
     public function update(User $user)
     {
-        $data = request()->all();
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required'
+        ]);
 
         $data['password'] = bcrypt($data['password']);
         
