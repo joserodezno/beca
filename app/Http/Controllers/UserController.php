@@ -67,8 +67,8 @@ class UserController extends Controller
     {
         $data = request()->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => ''
+            'email' => 'required|email',
+            'password' => '',
         ]);
 
         if ($data['password'] != null){
@@ -80,6 +80,6 @@ class UserController extends Controller
         
         $user->update($data);
 
-        return redirect()->route('users.show', ['user' => $user]);
+        return redirect()->route('users.details', ['user' => $user]);
     }
 }

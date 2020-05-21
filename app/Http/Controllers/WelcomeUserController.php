@@ -6,19 +6,14 @@ use Illuminate\Http\Request;
 
 class WelcomeUserController extends Controller
 {
-    public function nonickname($name)
-    {
-        $name = ucfirst($name);
-    
-
-        return "Bienvenido {$name}";
-    }
-    
-
-    public function welcome($name, $nickname)
+    public function __invoke($name, $nickname = null)
     {
         $name = ucfirst($name);
 
-        return "Bienvenido {$name}, tu apodo es {$nickname}";
+        if ($nickname) {
+            return "Bienvenido {$name}, tu apodo es {$nickname}";
+        } else {
+            return "Bienvenido {$name}";
+        }
     }
 }

@@ -42,7 +42,6 @@ class UsersModuleTest extends TestCase
     }
 
     /** @test */
-
     function loads_users_details_page()
     {
         $user = factory(User::class)->create([
@@ -55,7 +54,6 @@ class UsersModuleTest extends TestCase
     }
 
     /** @test */
-
     function displays_error_404_if_user_not_found()
     {
         $this->get('/usuarios/999')
@@ -64,7 +62,6 @@ class UsersModuleTest extends TestCase
     }
 
     /** @test */
-
     function loads_new_users_page()
     {
        $this->get('/usuarios/nuevo')
@@ -73,7 +70,6 @@ class UsersModuleTest extends TestCase
     }
 
     /** @test */
-
     function create_new_user()
     {
         $this->withoutExceptionHandling();
@@ -91,6 +87,7 @@ class UsersModuleTest extends TestCase
         ]);
     }
 
+    /** @test*/
     function page_not_found()
     {
         $this->get('/usuarios/texto/edit')
@@ -191,7 +188,7 @@ class UsersModuleTest extends TestCase
 
         $user = factory(User::class)->create();
 
-        $this->get("/usuarios/{$user->id}/edit")
+        $this->get("/usuarios/{$user->id}/editar")
             ->assertStatus(200)
             ->assertViewIs('users.edit')
             ->assertSee('Editar usuario')
@@ -287,16 +284,16 @@ class UsersModuleTest extends TestCase
        ]);
 
         $this->from("usuarios/{$user->id}/editar")
-        ->put("usuarios/{$user->id}", [
-            'name' => 'Jose Rodezno',
-            'email' => 'joserodezno99@gmail.com',
-            'password' => 'prueba'
+            ->put("usuarios/{$user->id}", [
+                'name' => 'Rodezno',
+                'email' => 'joserodezno99@gmail.com',
+                'password' => 'prueba'
         ])
         ->assertRedirect("usuarios/{$user->id}");
 
         $this->assertDatabaseHas('users', [
-            'name' => 'Jose Rodezno',
-            'email' => 'joserodezno99@gmail.com'
+            'name' => 'Rodezno',
+            'email' => 'joserodezno99@gmail.com',
             ]); 
     }
 
