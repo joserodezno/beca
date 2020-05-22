@@ -256,8 +256,11 @@ class UsersModuleTest extends TestCase
     /** @test */
     function email_must_be_unique_when_updating_user()
     {
-        self::markTestIncomplete();
-        return;
+
+
+        $randomUser = factory(User::class)->create([
+            'email' => 'existing-email@example.com',
+        ]);
 
         $user = factory(User::class)->create([
             'email' => 'joserodezno99@gmail.com'
@@ -266,13 +269,13 @@ class UsersModuleTest extends TestCase
         $this->from("usuarios/{$user->id}/editar")
         ->put("usuarios/{$user->id}", [
             'name' => 'Jose Rodezno',
-            'email' => 'joserodezno99@gmail.com',
+            'email' => 'existing-email@example.com',
             'password' => 'prueba'
         ])
-        ->assertRedirect('usuarios/nuevo')
+        ->assertRedirect("usuarios/{$user->id}/editar")
         ->assertSessionHasErrors(['email']);
 
-        $this->assertEquals(1, User::count());
+        
     }
 
     /** @test */
