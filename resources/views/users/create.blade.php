@@ -12,11 +12,11 @@
     @if ($errors->any())
     <div class="alert alert-danger">
         <h6>Por favor corrige los errores debajo:</h6>
-        {{-- <ul>
+        <ul>
             @foreach ($errors->all() as $errors)
                 <li>{{ $errors }}</li>
             @endforeach
-        </ul> --}}
+        </ul>
     </div>
     @endif
 
@@ -25,9 +25,6 @@
 
         <label for="name">Nombre:</label>
         <input type="text" name="name"  id="name" placeholder="Pedro Perez" value="{{ old('name')}}">
-        @if ($errors->has('name'))
-            <p>{{ $errors->first('name') }}</p>
-        @endif
         <br>
         <label for="email">Correo electrónico:</label>
         <input type="email" name="email"  id="email" placeholder="pedro@exmaple.com" value="{{ old('email')}}">
