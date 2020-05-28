@@ -2,11 +2,15 @@
 
 @section('title', 'Usuarios')
         
-@section('content')    
-    <h1>{{$title}}</h1>
-    <p>
-        <a href="{{ route('users.create') }}">Nuevo usuario</a>
-    </p>
+@section('content')  
+    
+    <div class="d-flex justify-content-between align-items-end mb-2">
+        <h1 class="pb-1">{{$title}}</h1>
+
+        <p>
+            <a href="{{ route('users.create') }}" class="btn btn-primary">Nuevo usuario</a>
+        </p>
+    </div>
 
     @if ($users->isNotEmpty())
 
@@ -26,12 +30,13 @@
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
             <td>
-                <a href="{{ route('users.details', $user) }}">Ver detalles </a> | 
-                <a href="{{ route('users.edit', $user) }}">Editar</a> |
+                
                 <form action="{{ route('users.destroy', $user) }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
-                    <button type="submit">Eliminar</button>
+                    <a href="{{ route('users.details', $user) }}" class="btn btn-link"><span class="oi oi-eye"></span></a>
+                    <a href="{{ route('users.edit', $user) }}" class="btn btn-link"><span class="oi oi-pencil"></span></a>
+                    <button type="submit" class="btn btn-link"><span class="oi oi-trash"></span></button>
                 </form>
             </td>
           </tr>
