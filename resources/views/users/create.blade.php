@@ -5,11 +5,10 @@
 
 @section('content')
 
-    <h1>Crear nuevo usuario</h1>
-
-
-
-    @if ($errors->any())
+    <div class="card">
+        <h4 class="card-header">Crear usuario</h4>
+        <div class="card-body">
+            @if ($errors->any())
     <div class="alert alert-danger">
         <h6>Por favor corrige los errores debajo:</h6>
         <ul>
@@ -23,19 +22,26 @@
     <form method="POST" action="{{ url('usuarios')}}">
         {!! csrf_field() !!}
 
-        <label for="name">Nombre:</label>
-        <input type="text" name="name"  id="name" placeholder="Pedro Perez" value="{{ old('name')}}">
-        <br>
-        <label for="email">Correo electrónico:</label>
-        <input type="email" name="email"  id="email" placeholder="pedro@exmaple.com" value="{{ old('email')}}">
-        <br>
-        <label for="password">Contraseña:</label>
-        <input type="password" name="password" id="password" placeholder="Mayor a 6 caracteres">
-        <br>
-        <button type="submit">Crear usuario</button>
-    </form>
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Pedro Perez" value="{{ old('name')}}">
+        </div>
 
-    <p>
-    <a href="{{ route('users.index') }}">Regresar al listado de usuarios</a>
-    </p>
+        <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" class="form-control" name="email"  id="email" placeholder="pedro@exmaple.com" value="{{ old('email')}}">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Mayor a 6 caracteres">
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-primary">Crear usuario</button>
+        <a href="{{ route('users.index') }}" class="btn btn-link">Regresar al listado de usuarios</a>
+    </form>
+        </div>
+    </div>
+
 @endsection
