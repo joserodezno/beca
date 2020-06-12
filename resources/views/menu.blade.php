@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('users.create')}}">New</a>
+            <a class="nav-link" href="{{ route('users.create')}}">Nuevo</a>
         </li>
       </ul>
     </div>
